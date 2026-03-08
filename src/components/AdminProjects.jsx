@@ -5,6 +5,7 @@ function AdminProjects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [editProject, setEditProject] = useState(null);
 
   // Add Project
   const [name, setName] = useState("");
@@ -16,6 +17,19 @@ function AdminProjects() {
   const [addProject, setAddProject] = useState(false);
   const [deleteId, setDeleteId] = useState();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedProjectTitle, setSelectedProjectTitle] = useState("");
+  const [editModalOpen, setEditModalOpen] = useState(false);
+
+  // Cursor Move
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const handleMouseMove = (e) => {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const deltaX = (e.clientX - centerX) / 20;
+    const deltaY = (e.clientY - centerY) / 20;
+    setOffset({ x: deltaX, y: deltaY });
+  };
+
   // Add project function
   function handleSubmit(e) {
     e.preventDefault();
@@ -64,9 +78,10 @@ function AdminProjects() {
     setDeleteModalOpen(false);
   }
 
-  function DeleteProject(id) {
+  function DeleteProject(id, title) {
     setDeleteModalOpen(true);
     setDeleteId(id);
+    setSelectedProjectTitle(title);
   }
 
   function DeleteProjectId(id) {
@@ -74,10 +89,59 @@ function AdminProjects() {
     setDeleteModalOpen(false);
   }
 
+  // Edite
+  function Edit(item, title, id) {
+    setEditProject(item);
+    setEditModalOpen(true);
+    setSelectedProjectTitle(title);
+  }
+
+  function handleEditSubmit(e) {
+    e.preventDefault();
+    if (!editProject) return;
+
+    const orginalData = {
+      title: editProject.title,
+      description: editProject.description,
+      technologies: editProject.technologies,
+      demo_link: editProject.demo_link,
+      repo_link: editProject.repo_link,
+      order: editProject.order,
+    };
+    const dataToUpdate = {
+      title: editProject.title,
+      description: editProject.description,
+      technologies: editProject.technologies,
+      demo_link: editProject.demo_link,
+      repo_link: editProject.repo_link,
+      order: editProject.order,
+    };
+
+    const original = orginalData;
+
+    const allSame =
+      original.title === dataToUpdate.title &&
+      original.description === dataToUpdate.description &&
+      original.technologies === dataToUpdate.technologies &&
+      original.demo_link === dataToUpdate.demo_link &&
+      original.repo_link === dataToUpdate.repo_link &&
+      original.order === dataToUpdate.order;
+
+    if (allSame) {
+      ProjectsAPI.putProjectId(editProject.id, dataToUpdate).then(() =>
+        console.log("Loyiha to'liq yangilandi")
+      );
+    } else {
+      ProjectsAPI.patchProjectPartialId(editProject.id, dataToUpdate).then(() =>
+        console.log("Loyiha qisman yangilandi!!")
+      );
+    }
+    setEditModalOpen(false);
+  }
+
   useEffect(() => {
     ProjectsAPI.getProject()
       .then((res) => {
-        console.log(res.data);
         setProjects(res.data);
       })
       .catch((error) => {
@@ -101,6 +165,99 @@ function AdminProjects() {
     <>
       <HeaderAdmin />
 
+      {/* Edit Modal */}
+      {editModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-[#fff] dark:bg-gray-800 w-full max-w-lg rounded-lg shadow-lg p-6 relative">
+            <button
+              onClick={() => setEditModalOpen(false)}
+              className="absolute top-4 right-4 cursor-pointer text-gray-500 hover:text-gray-700 text-xl font-bold"
+            >
+              ×
+            </button>
+
+            <h2 className="text-2xl font-semibold mb-4 text-center">
+              " {selectedProjectTitle} " ushbu loyihani tahrirlayabsiz!
+            </h2>
+
+            <form onSubmit={handleEditSubmit}>
+              <div className="flex items-center flex-wrap justify-center gap-4">
+                {/* ✅ value va onChange qo'shildi */}
+                <input
+                  type="text"
+                  className="input"
+                  placeholder="Loyihangiz Nomi"
+                  value={editProject?.title || ""}
+                  onChange={(e) =>
+                    setEditProject({ ...editProject, title: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Texnologiyalar"
+                  className="input"
+                  value={editProject?.technologies || ""}
+                  onChange={(e) =>
+                    setEditProject({
+                      ...editProject,
+                      technologies: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Demo Link"
+                  className="input"
+                  value={editProject?.demo_link || ""}
+                  onChange={(e) =>
+                    setEditProject({
+                      ...editProject,
+                      demo_link: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Repo Link"
+                  className="input"
+                  value={editProject?.repo_link || ""}
+                  onChange={(e) =>
+                    setEditProject({
+                      ...editProject,
+                      repo_link: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Order"
+                  className="input"
+                  value={editProject?.order || ""}
+                  onChange={(e) =>
+                    setEditProject({ ...editProject, order: e.target.value })
+                  }
+                />
+                <textarea
+                  placeholder="Loyihangiz haqida izoh"
+                  className="input pt-2 mt-4 resize-none h-[130px]"
+                  value={editProject?.description || ""}
+                  onChange={(e) =>
+                    setEditProject({
+                      ...editProject,
+                      description: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="flex justify-end items-center">
+                <button className="btn-info btn mt-4">Tasdiqlash</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Modal */}
       {deleteModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-6 sm:p-8 relative">
@@ -108,7 +265,8 @@ function AdminProjects() {
               Loyihani o‘chirishni tasdiqlaysizmi?
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
-              "" loyihasi o‘chiriladi. Bu amalni qaytarib bo‘lmaydi.
+              "{selectedProjectTitle}" loyihasi o‘chiriladi. Bu amalni qaytarib
+              bo‘lmaydi.
             </p>
 
             <div className="flex justify-center gap-4">
@@ -203,25 +361,49 @@ function AdminProjects() {
           </button>
         </div>
 
-        <div></div>
         <div className="flex items-center justify-between flex-wrap gap-4">
           {projects.map((item) => {
             return (
-              <div key={item.id}>
-                <div className="card w-96 card-lg shadow-sm p-4 border-[2px] border-[#fff]">
+              <div
+                key={item.id}
+                className="cursor-pointer"
+                onMouseMove={handleMouseMove}
+              >
+                <div
+                  className="card w-96 card-lg shadow-sm p-4 border-[2px] border-[#fff]"
+                  style={{
+                    transform: `translate(${offset.x}px, ${offset.y}px)`,
+                  }}
+                >
                   <div className="card-body">
-                    <h2 className="card-title">{item.title}</h2>
-                    <p>{item.description}</p>
-                    <p>{item.technologies}</p>
+                    <h2 className="card-title">Loyiha: {item.title}</h2>
+                    <p>
+                      <span className="font-bold text-[16px]">Izoh:</span>{" "}
+                      {item.description}
+                    </p>
+                    <p>
+                      <span className="font-bold text-[16px]">
+                        Texnologiyalar:
+                      </span>{" "}
+                      {item.technologies}
+                    </p>
                   </div>
 
                   <div className=" items-end card-actions flex-col">
                     <div className="flex items-center gap-2">
-                      <a href={item.demo_link} className="btn btn-primary">
+                      <a
+                        href={item.demo_link}
+                        target="_blank"
+                        className="btn btn-primary"
+                      >
                         Demo
                       </a>
 
-                      <a href={item.repo_link} className="btn btn-error">
+                      <a
+                        href={item.repo_link}
+                        target="_blank"
+                        className="btn btn-error"
+                      >
                         Repo
                       </a>
                     </div>
@@ -229,11 +411,16 @@ function AdminProjects() {
                     <div className="flex items-center gap-4 justify-end mt-2">
                       <button
                         className="btn btn-error"
-                        onClick={() => DeleteProject(item.id)}
+                        onClick={() => DeleteProject(item.id, item.title)}
                       >
                         O'chirish
                       </button>
-                      <button className="btn btn-accent">Tahrirlash</button>
+                      <button
+                        className="btn btn-accent"
+                        onClick={() => Edit(item, item.title)}
+                      >
+                        Tahrirlash
+                      </button>
                     </div>
                   </div>
                 </div>

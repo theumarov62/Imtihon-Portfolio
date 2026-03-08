@@ -1,19 +1,19 @@
 import api from "../api/axios";
 const About = {
   getAbout: () => {
-    api.get("/about/");
+    api.get("/api/about/");
   },
   getAboutId: (id) => {
-    api.get(`/about/${id}`);
+    api.get(`/api/about/${id}`);
   },
   postAbout: (data) => {
-    api.post("/about/", data);
+    api.post("/api/about/", data);
   },
   putAboutId: (id) => {
-    api.put(`/about/${id}`);
+    api.put(`/api/about/${id}`);
   },
   patchAboutPartialId: (id) => {
-    api.patch(`/about/${id}`);
+    api.patch(`/api/about/${id}`);
   },
 };
 
