@@ -57,7 +57,7 @@ function Main() {
             <img
               src="/img-none.png"
               alt="None Img"
-              className="w-[506px] h-[504px] rounded-[50%]"
+              className="w-[506px] h-[504px] rounded-[50%] border-[4px] border-[#7C3AED4D]/30 shadow-[0px_25px_50px_-12px_rgba(124,58,237,0.2)]"
             />
           </div>
         </section>
