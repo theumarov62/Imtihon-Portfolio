@@ -4,7 +4,7 @@ function Main() {
   return (
     <>
       <main>
-        <section className="bg-gradient-to-r from-[#1A1A2E] to-[#0F0F1E] pt-[155px]">
+        <section className="bg-gradient-to-r pb-[228px] from-[#1A1A2E] to-[#0F0F1E] pt-[155px]">
           <div className="max-w-[1280px] ml-auto mr-auto w-[100%] flex gap-[100px] items-center">
             {/* Hello Abdulloh */}
             <div>
