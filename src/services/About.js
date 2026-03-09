@@ -15,6 +15,10 @@ const About = {
   patchAboutPartialId: (id) => {
     return api.patch(`/api/about/${id}`);
   },
+
+  deleteAboutId: (id) => {
+    return api.delete(`/api/about/${id}`);
+  },
 };
 
 export default About;

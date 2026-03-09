@@ -6,9 +6,10 @@ function AdminAbout() {
   const [role, setRole] = useState("");
   const [bio, setBio] = useState("");
   const [aboutOpenModal, setAboutOpenModal] = useState(false);
-
+  const [deleteModal, setDeleteModal] = useState(false);
   const [about, setAbout] = useState([]);
-
+  const [selectedProjectTitle, setSelectedProjectTitle] = useState("");
+  const [deletedId, setDeletedId] = useState();
   const data = {
     name: name,
     role: role,
@@ -34,9 +35,47 @@ function AdminAbout() {
     n();
   }, []);
 
+  function AboutDelete(id) {
+    About.deleteAboutId(id)
+      .then(() => {
+        setAbout((prev) => prev.filter((item) => item.id !== id));
+        setDeleteModal(false);
+      })
+      .catch((error) => {
+        console.error("O'chirilmadi", error);
+      });
+  }
   return (
     <>
       <Header />
+      {deleteModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-6 sm:p-8 relative">
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4 text-center">
+              Loyihani o‘chirishni tasdiqlaysizmi?
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
+              "{selectedProjectTitle}" loyihasi o‘chiriladi. Bu amalni qaytarib
+              bo‘lmaydi.
+            </p>
+
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={() => setDeleteModal(false)}
+                className="bg-gray-300 cursor-pointer hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded-md"
+              >
+                Bekor qilish
+              </button>
+              <button
+                onClick={() => AboutDelete(deletedId)}
+                className="bg-red-500 hover:bg-red-600 cursor-pointer text-white font-medium py-2 px-4 rounded-md"
+              >
+                O‘chirish
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <section className="p-10">
         {aboutOpenModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -93,12 +132,34 @@ function AdminAbout() {
         <div className="mt-10">
           <h2 className="text-center text-[30px]">Aboutlar</h2>
 
-          <div>
+          <div className="flex items-center justify-between">
             {about.map((item) => {
               return (
                 <div key={item.id}>
-                  <h4>{item.name}</h4>
-                  <p>{item.bio}</p>
+                  <div className="w-[300px] h-[164px] rounded-[16px] gap-5 flex flex-col bg-[#1A1A2E] pt-[24px] pb-[24px] pl-[24px]">
+                    <div className="flex flex-col gap-2">
+                      <h4 className="font-400 text-[16px] leading-[24px] text-[#fff]">
+                        {item.name}
+                      </h4>
+                      <p className="font-normal text-[14px] leading-[20px] text-[#99A1AF]">
+                        {item.bio}{" "}
+                      </p>
+                    </div>
+
+                    {/* Btns */}
+                    <div className="flex justify-end pr-4">
+                      <button
+                        className="btn btn-error"
+                        onClick={() => {
+                          setDeleteModal(true);
+                          setSelectedProjectTitle(item.name);
+                          setDeletedId(item.id);
+                        }}
+                      >
+                        O'chirish
+                      </button>
+                    </div>
+                  </div>
                 </div>
               );
             })}
