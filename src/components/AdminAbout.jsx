@@ -132,7 +132,7 @@ function AdminAbout() {
         <div className="mt-10">
           <h2 className="text-center text-[30px]">Aboutlar</h2>
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap gap-4 items-center justify-between">
             {about.map((item) => {
               return (
                 <div key={item.id}>
@@ -142,7 +142,7 @@ function AdminAbout() {
                         {item.name}
                       </h4>
                       <p className="font-normal text-[14px] leading-[20px] text-[#99A1AF]">
-                        {item.bio}{" "}
+                        {item.bio}
                       </p>
                     </div>
 
