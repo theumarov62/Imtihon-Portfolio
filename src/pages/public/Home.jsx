@@ -39,6 +39,7 @@ function Home() {
       <Main />
       <AboutPublic />
 
+      {/* Projects */}
       <section>
         <div className="flex items-center justify-center">
           {projects.map((item) => {

@@ -8,6 +8,7 @@ function AboutPublic() {
     { id: 3, name: "React", img: "/about/react.svg", alt: "Img" },
     { id: 4, name: "TypeScript", img: "/about/typescript.svg", alt: "Img" },
     { id: 5, name: "Tailwind", img: "/about/tailwind.svg", alt: "Img" },
+    { id: 6, name: "Css", img: "/about/css.svg", alt: "Img" },
   ];
   useEffect(() => {
     async function fetchAbout() {
@@ -18,6 +19,13 @@ function AboutPublic() {
 
     fetchAbout();
   }, []);
+
+  const icons = [
+    "/about/clean-code.svg",
+    "/about/ui-ux.svg",
+    "/about/performance.svg",
+    "/about/collaboration.svg",
+  ];
   return (
     <section className="bg-[#0F0F1E] pt-[98px] pb-[96px]">
       <div className="max-w-[1280px] w-[100%] ml-auto mr-auto">
@@ -26,8 +34,8 @@ function AboutPublic() {
           <span className="w-[80px] h-[4px] bg-[#7C3AED]"></span>
         </h2>
 
-        <div>
-          <div className="flex flex-col items-start mt-16 gap-6 w-[616px]">
+        <div className="flex items-start justify-center pt-16 gap-12">
+          <div className="flex flex-col items-start gap-6 w-154">
             {/* About information */}
             <div className="font-normal text-[16px] leading-[24px] text-[#D1D5DC] w-[616px] rounded-[16px] col-span-1 bg-[#1A1A2E] pt-8 pl-8 pr-8 pb-8">
               Men chiroyli, funktsional va foydalanuvchilar uchun qulay
@@ -46,17 +54,23 @@ function AboutPublic() {
               ko'rishingiz mumkin.
             </div>
             <div className="justify-between flex gap-4 flex-wrap items-center">
-              {about.map((item) => {
+              {about.map((item, index) => {
                 return (
                   <div key={item.id}>
                     <div className="w-[300px] h-[164px] rounded-2xl bg-[#1A1A2E] p-6">
                       <div className="flex flex-col gap-2">
+                        <img
+                          src={icons[index] || "/img-none.png"}
+                          alt="Img"
+                          className="w-8 h-8"
+                        />
                         <h4 className="font-400 text-[16px] leading-[24px] text-[#fff]">
                           {item.name}
                         </h4>
                         <p className="font-normal text-[14px] leading-[20px] text-[#99A1AF]">
                           {item.bio}
                         </p>
+                        {console.log(item.id)}
                       </div>
                     </div>
                   </div>
@@ -71,13 +85,16 @@ function AboutPublic() {
             </div>
           </div>
           <div>
-            <div className="w-[616px] rounded-2xl bg-[#1A1A2E] p-8 gap-6 flex flex-col">
+            <div className="w-154 rounded-2xl bg-[#1A1A2E] p-8 gap-6 flex flex-col">
               <h4 className="font-normal text-[24px] leading-[32px]  text-[#fff]">
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-4 items-center">
                 {techStack.map((item) => (
-                  <div className="w-[173px] h-[96px] flex flex-col items-center rounded-[14px] gap-2 bg-[#0F0F1E]">
+                  <div
+                    key={item.id}
+                    className="w-[173px] h-[96px] flex flex-col pt-4 items-center rounded-[14px] gap-2 bg-[#0F0F1E]"
+                  >
                     <img
                       src={item.img}
                       alt={item.alt}
