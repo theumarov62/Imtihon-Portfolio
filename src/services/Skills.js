@@ -16,6 +16,9 @@ const Skills = {
   postSkills: (data) => {
     return api.post("/api/skills/", data);
   },
+  deleteSkill: (id) => {
+    return api.delete(`/api/skills/${id}`);
+  },
 };
 
 export default Skills;

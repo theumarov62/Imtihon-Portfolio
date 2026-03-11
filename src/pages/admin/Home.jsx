@@ -1,5 +1,4 @@
 import AdminLayouts from "../../layouts/admin/AdminLayouts";
-import FooterAdmin from "../../layouts/admin/FooterAdmin";
 import HeaderAdmin from "../../layouts/admin/HeaderAdmin";
 
 function Home() {
@@ -7,7 +6,6 @@ function Home() {
     <>
       <HeaderAdmin />
       <AdminLayouts />
-      <FooterAdmin />
     </>
   );
 }

@@ -3,6 +3,7 @@ import ProjectsAPI from "../../services/ProjectsAPI";
 import Header from "../../components/Public/Header";
 import Main from "../../components/Public/Main";
 import AboutPublic from "../../components/Public/AboutPublic";
+import SkillsPublic from "../../components/Public/SkillsPublic";
 
 function Home() {
   const [projects, setProjects] = useState([]);
@@ -38,7 +39,7 @@ function Home() {
       <Header />
       <Main />
       <AboutPublic />
-
+      <SkillsPublic />
       {/* Projects */}
       <section>
         <div className="flex items-center justify-center">

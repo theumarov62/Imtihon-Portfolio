@@ -4,6 +4,7 @@ import Skills from "../services/Skills";
 function AdminSkills() {
   const [skills, setSkills] = useState([]);
   const [skillModal, setSkillModal] = useState(false);
+
   // Add Skill Inputs state managment
   const [nameSkill, setNameSkill] = useState("");
   const [percentageSkill, setPercentageSkill] = useState("");
@@ -21,14 +22,19 @@ function AdminSkills() {
     });
   }, []);
 
-  async function handleSubmit(evt) {
-    evt.preventDefault();
+  async function handleSubmit(e) {
+    e.preventDefault();
     await Skills.postSkills(data);
     console.log(data);
 
     setNameSkill("");
     setPercentageSkill("");
     setOrderSkill();
+  }
+
+  function deleteSkills(id) {
+    Skills.deleteSkill(id);
+    console.log("ochirildi");
   }
   return (
     <>
@@ -38,41 +44,43 @@ function AdminSkills() {
         <div className="max-w-350 w-[100%] mx-auto">
           {skillModal && (
             <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50 p-4">
-              <button
-                onClick={() => setSkillModal(false)}
-                className="absolute top-3 right-3 text-gray-500 cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 text-lg font-bold"
-              >
-                &times;
-              </button>
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  placeholder="Texnologiya nomini kiriting"
-                  className="input"
-                  onChange={(e) => setNameSkill(e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="input"
-                  placeholder="Qanchalik bilasiz?(percentage)"
-                  onChange={(e) => setPercentageSkill(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Ixtiyoriy (order)"
-                  className="input"
-                  min={1}
-                  max={2000}
-                  onChange={(e) => setOrderSkill(e.target.value)}
-                />
-
-                <button
-                  className="btn btn-accent"
-                  onClick={setSkillModal(false)}
+              <div className="bg-white flex dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-6 sm:p-8 relative">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col justify-center w-full gap-4 items-center"
                 >
-                  Tasdiqlash
+                  <input
+                    type="text"
+                    placeholder="Texnologiya nomini kiriting"
+                    className="input"
+                    onChange={(e) => setNameSkill(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    className="input"
+                    placeholder="Qanchalik bilasiz?(percentage)"
+                    onChange={(e) => setPercentageSkill(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    placeholder="Ixtiyoriy (order)"
+                    className="input"
+                    min={1}
+                    max={2000}
+                    onChange={(e) => setOrderSkill(e.target.value)}
+                  />
+
+                  <button className="btn btn-accent w-80" type="submit">
+                    Tasdiqlash
+                  </button>
+                </form>
+                <button
+                  onClick={() => setSkillModal(false)}
+                  className="absolute top-3 right-3 text-gray-500 cursor-pointer hover:text-gray-700 dark:hover:text-gray-200 text-lg font-bold"
+                >
+                  &times;
                 </button>
-              </form>
+              </div>
             </div>
           )}
           {/* Add skill */}
@@ -89,11 +97,24 @@ function AdminSkills() {
               Technical Proficiency
             </h2>
 
-            <div className="flex-wrap flex items-center text-left">
+            <div className="flex-wrap flex justify-between gap-4 items-center text-left">
               {skills.map((item) => {
                 return (
-                  <div key={item.id}>
-                    <p>{item.name}</p>
+                  <div
+                    key={item.id}
+                    className="w-full bg-white border-2 border-black "
+                  >
+                    <p className="text-black">Texnologiya nomi: {item.name}</p>
+                    <p className="text-black">Foiz nomi: {item.percentage}</p>
+
+                    <p className="text-black">Order: {item.order}</p>
+
+                    <button
+                      className="btn btn-error"
+                      onClick={() => deleteSkills(item.id)}
+                    >
+                      O'chirish
+                    </button>
                   </div>
                 );
               })}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import About from "../../services/About";
 function AboutPublic() {
   const [about, setAbout] = useState([]);
+  const [loading, setLoading] = useState(true);
   const techAbout = [
     { id: 1, name: "3+", comment: "Years Exp." },
     { id: 2, name: "50+", comment: "Projects" },
@@ -17,9 +18,13 @@ function AboutPublic() {
   ];
   useEffect(() => {
     async function fetchAbout() {
-      const res = await About.getAbout();
-      setAbout(res.data);
-      console.log(res.data);
+      try {
+        const res = await About.getAbout();
+        setAbout(res.data);
+        console.log(res.data);
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchAbout();
@@ -59,28 +64,39 @@ function AboutPublic() {
               ko'rishingiz mumkin.
             </div>
             <div className="justify-between flex gap-4 flex-wrap items-center">
-              {about.map((item, index) => {
-                return (
-                  <div key={item.id}>
-                    <div className="w-[300px] h-[164px] rounded-2xl bg-[#1A1A2E] p-6">
+              {loading
+                ? Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-[300px] h-[164px] rounded-2xl bg-[#1A1A2E] p-6 animate-pulse"
+                    >
                       <div className="flex flex-col gap-2">
-                        <img
-                          src={icons[index] || "/img-none.png"}
-                          alt="Img"
-                          className="w-8 h-8"
-                        />
-                        <h4 className="font-400 text-[16px] leading-[24px] text-[#fff]">
-                          {item.name}
-                        </h4>
-                        <p className="font-normal text-[14px] leading-[20px] text-[#99A1AF]">
-                          {item.bio}
-                        </p>
-                        {console.log(item.id)}
+                        <div className="w-8 h-8 bg-gray-500 rounded-full"></div>
+                        <div className="h-4 bg-gray-500 rounded w-3/4"></div>
+                        <div className="h-3 bg-gray-500 rounded w-full mt-1"></div>
+                        <div className="h-3 bg-gray-500 rounded w-5/6 mt-1"></div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  ))
+                : about.map((item, index) => (
+                    <div key={item.id}>
+                      <div className="w-[300px] h-[164px] rounded-2xl bg-[#1A1A2E] p-6">
+                        <div className="flex flex-col gap-2">
+                          <img
+                            src={icons[index] || "/img-none.png"}
+                            alt="Img"
+                            className="w-8 h-8"
+                          />
+                          <h4 className="font-400 text-[16px] leading-[24px] text-[#fff]">
+                            {item.name}
+                          </h4>
+                          <p className="font-normal text-[14px] leading-[20px] text-[#99A1AF]">
+                            {item.bio}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
             </div>
 
             {/* About tech stack */}
