@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import About from "../../services/About";
 function AboutPublic() {
   const [about, setAbout] = useState([]);
+  const techAbout = [
+    { id: 1, name: "3+", comment: "Years Exp." },
+    { id: 2, name: "50+", comment: "Projects" },
+    { id: 3, name: "20+", comment: "Happy clients" },
+  ];
   const techStack = [
     { id: 1, name: "HTML", img: "/about/html.svg", alt: "Img" },
     { id: 2, name: "Javascript", img: "/about/javascript.svg", alt: "Img" },
@@ -79,12 +84,8 @@ function AboutPublic() {
             </div>
 
             {/* About tech stack */}
-            <div>
-              <div></div>
-              <div></div>
-            </div>
           </div>
-          <div>
+          <div className="flex flex-col gap-6">
             <div className="w-154 rounded-2xl bg-[#1A1A2E] p-8 gap-6 flex flex-col">
               <h4 className="font-normal text-[24px] leading-[32px]  text-[#fff]">
                 Tech Stack
@@ -104,6 +105,21 @@ function AboutPublic() {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="flex gap-4 items-center">
+              {techAbout.map((item) => (
+                <div
+                  key={item.id}
+                  className="w-48.5 h-28 rounded-2xl flex-col bg-[#1A1A2E] flex items-center justify-center gap-2"
+                >
+                  <h3 className="font-normal text-[30px] leading-9 text-[#7C3AED]">
+                    {item.name}
+                  </h3>
+                  <p className="font-normal text-[14px] text-[#99A1AF] leading-5">
+                    {item.comment}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

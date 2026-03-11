@@ -2,21 +2,20 @@ import api from "../api/axios";
 
 const Skills = {
   getSkills: () => {
-    api.get("/skills/");
+    return api.get("/api/skills/");
   },
   getSkillsId: (id) => {
-    api.get(`/skill/${id}`);
+    return api.get(`/api/skill/${id}`);
   },
   postSkills: (id) => {
-    api.put(`/skills/${id}`);
+    return api.put(`/api/skills/${id}`);
   },
   putSkillsPartial: (id) => {
-    api.patch(`/skills/${id}`);
+    return api.patch(`/api/skills/${id}`);
   },
   postSkills: (data) => {
-    api.post("/skills/", data);
+    return api.post("/api/skills/", data);
   },
-  
 };
 
 export default Skills;
