@@ -39,10 +39,11 @@ function Home() {
   return (
     <>
       <Header />
-      {/* <Main /> */}
-      {/* <AboutPublic />
+      <Main />
+      <AboutPublic />
       <SkillsPublic />
-      <ProjectsPublic /> */}
+      <ProjectsPublic />
+
       {/* Projects */}
       {/* <section>
         <div className="flex items-center justify-center">

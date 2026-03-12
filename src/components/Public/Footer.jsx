@@ -20,7 +20,7 @@ function Footer() {
     };
   });
   return (
-    <footer className="bg-[#0A0A14] pr-1 pl-1 border border-[#7C3AED33]/20 fixed bottom-0 w-full pt-8 pb-8 ">
+    <footer className="bg-[#0A0A14] pr-1 pl-1 border border-[#7C3AED33]/20 pt-8 pb-8">
       <div
         className="max-w-7xl w-full flex justify-between gap-4 items-center mx-auto"
         style={{
