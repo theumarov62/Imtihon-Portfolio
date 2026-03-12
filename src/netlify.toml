@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"   # yoki "yarn build"
+  publish = "build"           # React build papkasi
+
+# SPA routing: barcha URL'larni index.html ga yo'naltiradi
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
