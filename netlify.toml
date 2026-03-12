@@ -1,8 +1,7 @@
 [build]
-  command = "npm run build"   # yoki "yarn build"
-  publish = "build"           # React build papkasi
+  command = "npm run build"
+  publish = "dist"   # Vite build papkasi 'dist'
 
-# SPA routing: barcha URL'larni index.html ga yo'naltiradi
 [[redirects]]
   from = "/*"
   to = "/index.html"
