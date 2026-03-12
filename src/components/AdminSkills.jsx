@@ -4,7 +4,7 @@ import Skills from "../services/Skills";
 function AdminSkills() {
   const [skills, setSkills] = useState([]);
   const [skillModal, setSkillModal] = useState(false);
-
+  const [submitting, setSubmitting] = useState(false);
   // Add Skill Inputs state managment
   const [nameSkill, setNameSkill] = useState("");
   const [percentageSkill, setPercentageSkill] = useState("");
@@ -24,7 +24,12 @@ function AdminSkills() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await Skills.postSkills(data);
+    if (submitting) return;
+    setSubmitting(true);
+    await Skills.postSkills(data).finally(() => {
+      setSubmitting(false);
+      setSkillModal(false);
+    });
     console.log(data);
 
     setNameSkill("");
@@ -70,8 +75,12 @@ function AdminSkills() {
                     onChange={(e) => setOrderSkill(e.target.value)}
                   />
 
-                  <button className="btn btn-accent w-80" type="submit">
-                    Tasdiqlash
+                  <button
+                    className="btn btn-accent w-80"
+                    disabled={submitting}
+                    type="submit"
+                  >
+                    {submitting ? "Kutilmoqda" : "Tasdiqlash"}
                   </button>
                 </form>
                 <button

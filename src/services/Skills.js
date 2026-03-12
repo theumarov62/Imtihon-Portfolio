@@ -5,7 +5,7 @@ const Skills = {
     return api.get("/api/skills/");
   },
   getSkillsId: (id) => {
-    return api.get(`/api/skill/${id}`);
+    return api.get(`/api/skills/${id}`);
   },
   postSkills: (id) => {
     return api.put(`/api/skills/${id}`);

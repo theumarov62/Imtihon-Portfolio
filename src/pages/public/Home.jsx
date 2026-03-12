@@ -4,6 +4,8 @@ import Header from "../../components/Public/Header";
 import Main from "../../components/Public/Main";
 import AboutPublic from "../../components/Public/AboutPublic";
 import SkillsPublic from "../../components/Public/SkillsPublic";
+import ProjectsPublic from "../../components/Public/ProjectsPublic";
+import Footer from "../../components/Public/Footer";
 
 function Home() {
   const [projects, setProjects] = useState([]);
@@ -37,11 +39,12 @@ function Home() {
   return (
     <>
       <Header />
-      <Main />
-      <AboutPublic />
+      {/* <Main /> */}
+      {/* <AboutPublic />
       <SkillsPublic />
+      <ProjectsPublic /> */}
       {/* Projects */}
-      <section>
+      {/* <section>
         <div className="flex items-center justify-center">
           {projects.map((item) => {
             return (
@@ -94,7 +97,8 @@ function Home() {
             );
           })}
         </div>
-      </section>
+      </section> */}
+      <Footer />
     </>
   );
 }
