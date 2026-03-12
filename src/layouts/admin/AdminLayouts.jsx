@@ -26,11 +26,11 @@ function AdminLayouts() {
             </div>
           </div>
 
-          <div className="card bg-base-100 w-96 shadow-sm border-[white] border-[2px] cursor-pointer select-none">
+          {/* <div className="card bg-base-100 w-96 shadow-sm border-[white] border-[2px] cursor-pointer select-none">
             <div className="card-body">
               <h2 className="card-title font-normal">Contactlar bo'limi</h2>
             </div>
-          </div>
+          </div> */}
 
           <div
             onClick={() => navigate("/admin-skills")}
