@@ -2,7 +2,7 @@ import Link from "daisyui/components/link";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Header() {
+function Header({ scrollToAbout, scrollToSkills, scrollToProjects }) {
   const navigate = useNavigate();
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [hamburgerMenu, setHamburgerMenu] = useState(false);
@@ -36,8 +36,9 @@ function Header() {
           </h2>
         </div>
         {innerWidth > 640 ? (
-          <ul className="text-[#D1D5DC] flex items-center gap-[32px] ">
+          <ul className="text-[#D1D5DC] flex items-center gap-[32px]">
             <li
+              onClick={scrollToAbout}
               className="font-normal text-[16px] leading-6 cursor-pointer relative  
                  after:content-[''] after:absolute after:left-0 after:-bottom-0.5
                  after:h-0.75 after:w-0 after:bg-[#7C3AED] after:transition-all after:rounded-full
@@ -46,6 +47,7 @@ function Header() {
               About
             </li>
             <li
+              onClick={scrollToSkills}
               className="font-normal text-[16px] leading-6 cursor-pointer relative  
                  after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:rounded-full
                  after:h-0.75 after:w-0 after:bg-[#7C3AED] after:transition-all 
@@ -54,20 +56,13 @@ function Header() {
               Skills
             </li>
             <li
+              onClick={scrollToProjects}
               className="font-normal text-[16px] leading-6 cursor-pointer relative  
                  after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:rounded-full
                  after:h-0.75 after:w-0 after:bg-[#7C3AED] after:transition-all 
                  after:duration-300 hover:after:w-full"
             >
               Projects
-            </li>
-            <li
-              className="font-normal text-[16px] leading-6 cursor-pointer relative  
-                 after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:rounded-full
-                 after:h-0.75 after:w-0 after:bg-[#7C3AED] after:transition-all 
-                 after:duration-300 hover:after:w-full"
-            >
-              Contact
             </li>
           </ul>
         ) : (

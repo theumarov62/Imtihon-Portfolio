@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { StaticCards } from "../../data";
 import Skills from "../../services/Skills";
-function SkillsPublic() {
+const SkillsPublic = forwardRef((props, ref) => {
   const [skills, setSkills] = useState([]);
   useEffect(() => {
     async function GetSkill() {
@@ -12,21 +12,21 @@ function SkillsPublic() {
     GetSkill();
   }, []);
   return (
-    <section className="bg-[#1A1A2E] pt-24 pb-24">
+    <section className="bg-[#1A1A2E] pt-24 pb-24" ref={ref}>
       <div className="max-w-320 w-[100%] mx-auto ">
         <div className="flex flex-col items-center justify-center gap-16">
           <div className="flex flex-col gap-16">
-            <h2 className="font-normal text-[48px] leading-12 text-center text-white">
+            <h2 className="font-normal text-[48px] leading-12 text-center max-xk:text-[36px] max-xk:leading-9 text-white">
               Skills & Expertise
             </h2>
             <div>
               {/* Card */}
-              <div className="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-6 max-xb:flex-col max-xb:justify-center max-xb:items-center">
                 {StaticCards.map((item, i) => {
                   return (
                     <div
                       key={item.id}
-                      className="w-102.5 rounded-2xl bg-[#0F0F1E] flex flex-col p-8 gap-6"
+                      className="w-102.5 rounded-2xl max-xk:w-full bg-[#0F0F1E] flex flex-col p-8 gap-6"
                     >
                       <div
                         className="w-14 h-14 rounded-[14px] flex items-center justify-center"
@@ -56,15 +56,18 @@ function SkillsPublic() {
               </div>
             </div>
           </div>
-          <div className="w-7xl rounded-2xl gap-8 flex flex-col items-center justify-center p-12 bg-[#0F0F1E]">
+          <div className="w-7xl rounded-2xl gap-8 max-xb:w-full flex flex-col items-center justify-center p-12 bg-[#0F0F1E]">
             <h2 className="font-normal text-[24px] leading-8 text-center text-white">
               Technical Proficiency
             </h2>
 
-            <div className="flex-wrap flex items-center text-left w-[100%] bg-[#0F0F1E] gap-8">
+            <div className="flex-wrap flex max-xb:flex-col items-center text-left w-full bg-[#0F0F1E] gap-8">
               {skills.map((item) => {
                 return (
-                  <div key={item.id} className="w-xl h-11 flex flex-col">
+                  <div
+                    key={item.id}
+                    className="w-xl h-11 flex flex-col max-xb:w-full"
+                  >
                     <div className="flex flex-col gap-2">
                       <div className="flex justify-between">
                         <p className="font-normal text-4 leading-6 text-[#D1D5DC]">
@@ -76,7 +79,7 @@ function SkillsPublic() {
                       </div>
                       {/* bg */}
                       <div className="flex flex-col relative">
-                        <div className="w-xl h-3 bg-[#1A1A2E] rounded-full absolute"></div>
+                        <div className="w-xl max-xb:w-full h-3 bg-[#1A1A2E] rounded-full absolute"></div>
 
                         {/* bg percentage */}
                         <div
@@ -96,6 +99,6 @@ function SkillsPublic() {
       </div>
     </section>
   );
-}
+});
 
 export default SkillsPublic;

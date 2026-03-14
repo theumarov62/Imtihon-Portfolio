@@ -21,3 +21,13 @@ body {
   transition: 0.3s all;
   font-family: "Poppins", sans-serif;
 }
+
+@theme {
+  --breakpoint-xs: 25rem;
+  --breakpoint-xd: 85.25rem;
+  --breakpoint-xv: 39.5rem;
+  --breakpoint-xk: 27.5rem;
+  --breakpoint-xb: 80.31rem;
+  --breakpoint-xa: 40rem;
+  --breakpoint-xq: 30rem;
+}

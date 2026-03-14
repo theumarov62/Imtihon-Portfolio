@@ -14,9 +14,12 @@ import ProtectedRoute from "./Route/ProtectedRoute";
 import Admin from "./pages/admin/Home";
 // Admin Components import
 import AdminAbout from "./components/AdminAbout";
-import AdminContact from "./components/AdminContact";
+
 import AdminSkills from "./components/AdminSkills";
 import AdminProjects from "./components/AdminProjects";
+
+// Projects import
+import Projects from "./components/Public/Projects/Projects";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -39,7 +42,7 @@ createRoot(document.getElementById("root")).render(
 
       {/* Admin Panel */}
       <Route
-        path="admin-about"
+        path="/admin-about"
         element={
           <ProtectedRoute>
             <AdminAbout />
@@ -48,16 +51,7 @@ createRoot(document.getElementById("root")).render(
       />
 
       <Route
-        path="admin-contact"
-        element={
-          <ProtectedRoute>
-            <AdminContact />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="admin-skills"
+        path="/admin-skills"
         element={
           <ProtectedRoute>
             <AdminSkills />
@@ -66,13 +60,14 @@ createRoot(document.getElementById("root")).render(
       />
 
       <Route
-        path="admin-projects"
+        path="/admin-projects"
         element={
           <ProtectedRoute>
             <AdminProjects />
           </ProtectedRoute>
         }
       />
+      <Route path="/projects" element={<Projects />} />
     </Routes>
   </BrowserRouter>
 );

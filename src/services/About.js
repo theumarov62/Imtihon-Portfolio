@@ -12,8 +12,8 @@ const About = {
   putAboutId: (id) => {
     return api.put(`/api/about/${id}`);
   },
-  patchAboutPartialId: (id) => {
-    return api.patch(`/api/about/${id}`);
+  patchAboutPartialId: (id, data) => {
+    return api.patch(`/api/about/${id}`, data);
   },
 
   deleteAboutId: (id) => {

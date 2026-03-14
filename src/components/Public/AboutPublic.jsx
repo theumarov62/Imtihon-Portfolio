@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import About from "../../services/About";
-function AboutPublic() {
+const AboutPublic = forwardRef((props, ref) => {
   const [about, setAbout] = useState([]);
   const [loading, setLoading] = useState(true);
   const techAbout = [
@@ -37,18 +37,21 @@ function AboutPublic() {
     "/about/collaboration.svg",
   ];
   return (
-    <section className="bg-[#0F0F1E] pt-[98px] pb-[96px]">
+    <section
+      className="bg-[#0F0F1E] pt-[98px] pb-[96px] max-xd:pl-2 max-xd:pr-2"
+      ref={ref}
+    >
       <div className="max-w-[1280px] w-[100%] ml-auto mr-auto">
         <h2 className="font-normal text-[48px] leading-[48px] flex flex-col items-center gap-4 select-none text-center text-[#fff]">
           About Me
           <span className="w-[80px] h-[4px] bg-[#7C3AED]"></span>
         </h2>
 
-        <div className="flex items-start justify-center pt-16 gap-12">
-          <div className="flex flex-col items-start gap-6 w-154">
+        <div className="flex items-start justify-center max-xd:flex-col max-xd:w-full max-xd:items-center pt-16 gap-12">
+          <div className="flex flex-col items-start gap-6 w-154 max-xd:w-full max-xd:text-[14px]">
             {/* About information */}
-            <div className="font-normal text-[16px] leading-[24px] text-[#D1D5DC] w-[616px] rounded-[16px] col-span-1 bg-[#1A1A2E] pt-8 pl-8 pr-8 pb-8">
-              Men chiroyli, funktsional va foydalanuvchilar uchun qulay
+            <div className="font-normal flex justify-center items-center text-[16px] leading-6 text-[#D1D5DC] w-154 max-xv:w-full rounded-2xl mx-auto bg-[#1A1A2E] pt-8 pl-8 pr-8 pb-8">
+              Men chiroyli, funktsional va foydalanuvchilar uchun qulay 
               veb-tajribalarni yaratishga katta e'tibor qaratadigan ishtiyoqli
               Frontend dasturchisiman. Zamonaviy veb-texnologiyalar sohasidagi
               tajribam bilan men g'oyalarni haqiqatga aylantiraman. <br />
@@ -63,12 +66,12 @@ function AboutPublic() {
               yoki eng so'nggi dizayn tendentsiyalari haqida bilib olayotganimda
               ko'rishingiz mumkin.
             </div>
-            <div className="justify-between flex gap-4 flex-wrap items-center">
+            <div className="max-xd:justify-center justify-between flex gap-4 flex-wrap  max-xd:w-full max-xd:flex-col items-center">
               {loading
                 ? Array.from({ length: 4 }).map((_, i) => (
                     <div
                       key={i}
-                      className="w-[300px] h-[164px] rounded-2xl bg-[#1A1A2E] p-6 animate-pulse"
+                      className="w-[300px] h-[164px] max-xd:w-[54%] rounded-2xl bg-[#1A1A2E] p-6 animate-pulse"
                     >
                       <div className="flex flex-col gap-2">
                         <div className="w-8 h-8 bg-gray-500 rounded-full"></div>
@@ -80,7 +83,7 @@ function AboutPublic() {
                   ))
                 : about.map((item, index) => (
                     <div key={item.id}>
-                      <div className="w-[300px] h-[164px] rounded-2xl bg-[#1A1A2E] p-6">
+                      <div className="w-75 h-41 max-xd:w-[345px] max-xd:h-full rounded-2xl bg-[#1A1A2E] p-6">
                         <div className="flex flex-col gap-2">
                           <img
                             src={icons[index] || "/img-none.png"}
@@ -101,16 +104,16 @@ function AboutPublic() {
 
             {/* About tech stack */}
           </div>
-          <div className="flex flex-col gap-6">
-            <div className="w-154 rounded-2xl bg-[#1A1A2E] p-8 gap-6 flex flex-col">
-              <h4 className="font-normal text-[24px] leading-[32px]  text-[#fff]">
+          <div className="flex flex-col gap-6 max-xd:w-full">
+            <div className="w-154 rounded-2xl bg-[#1A1A2E] p-8 max-xd:p-6 gap-6 flex flex-col max-xd:w-full">
+              <h4 className="font-normal text-[24px] max-xd:text-[20px] max-xd:leading-[28px] leading-[32px]  text-[#fff]">
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-4 items-center">
                 {techStack.map((item) => (
                   <div
                     key={item.id}
-                    className="w-[173px] h-[96px] flex flex-col pt-4 items-center rounded-[14px] gap-2 bg-[#0F0F1E]"
+                    className="w-[173px] max-xd:w-full h-[96px] flex flex-col pt-4 items-center rounded-[14px] gap-2 bg-[#0F0F1E]"
                   >
                     <img
                       src={item.img}
@@ -122,16 +125,16 @@ function AboutPublic() {
                 ))}
               </div>
             </div>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center max-xd:justify-center">
               {techAbout.map((item) => (
                 <div
                   key={item.id}
                   className="w-48.5 h-28 rounded-2xl flex-col bg-[#1A1A2E] flex items-center justify-center gap-2"
                 >
-                  <h3 className="font-normal text-[30px] leading-9 text-[#7C3AED]">
+                  <h3 className="font-normal text-[30px] max-xd:text-[24px] max-xd:leading-8 leading-9 text-[#7C3AED]">
                     {item.name}
                   </h3>
-                  <p className="font-normal text-[14px] text-[#99A1AF] leading-5">
+                  <p className="font-normal text-[14px] max-xd:text-[12px] max-xd:leading-4 text-[#99A1AF] leading-5">
                     {item.comment}
                   </p>
                 </div>
@@ -142,6 +145,6 @@ function AboutPublic() {
       </div>
     </section>
   );
-}
+});
 
 export default AboutPublic;
